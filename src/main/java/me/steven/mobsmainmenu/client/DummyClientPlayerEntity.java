@@ -1,13 +1,18 @@
 package me.steven.mobsmainmenu.client;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.util.DefaultSkinHelper;
+import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public class DummyClientPlayerEntity extends ClientPlayerEntity {
 
     private static DummyClientPlayerEntity instance;
+    private Identifier skinIdentifier = null;
 
     public static DummyClientPlayerEntity getInstance() {
         if (instance == null) instance = new DummyClientPlayerEntity();
@@ -16,6 +21,19 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
 
     private DummyClientPlayerEntity() {
         super(MinecraftClient.getInstance(), DummyClientWorld.getInstance(), DummyClientPlayNetworkHandler.getInstance(), null, null,false, false);
+        MinecraftClient.getInstance().getSkinProvider().loadSkin(getGameProfile(), (type, identifier, texture) -> {
+            skinIdentifier = identifier;
+        }, true);
+    }
+
+    @Override
+    public boolean hasSkinTexture() {
+        return true;
+    }
+
+    @Override
+    public Identifier getSkinTexture() {
+        return skinIdentifier == null ? DefaultSkinHelper.getTexture(this.getUuid()) : skinIdentifier;
     }
 
     @Nullable
