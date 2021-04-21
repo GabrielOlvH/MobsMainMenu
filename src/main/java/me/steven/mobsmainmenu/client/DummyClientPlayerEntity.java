@@ -4,6 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.util.Identifier;
@@ -24,6 +25,11 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
         MinecraftClient.getInstance().getSkinProvider().loadSkin(getGameProfile(), (type, identifier, texture) -> {
             skinIdentifier = identifier;
         }, true);
+    }
+
+    @Override
+    public boolean isPartVisible(PlayerModelPart modelPart) {
+        return true;
     }
 
     @Override
