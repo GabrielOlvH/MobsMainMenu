@@ -44,7 +44,7 @@ public class MixinTitleScreen {
             LivingEntity livingEntity = MobsMainMenu.livingEntity;
             if (livingEntity != null) {
                 try {
-                    InventoryScreen.drawEntity(entityX, height, 30, -mouseX + entityX, -mouseY + height - 30, livingEntity);
+                    MobsMainMenu.renderEntity(entityX, height, 30, -mouseX + entityX, -mouseY + height - 30, livingEntity);
                 } catch (Exception e) {
                     MobsMainMenu.livingEntity = null;
                 }
