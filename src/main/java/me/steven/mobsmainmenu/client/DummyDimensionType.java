@@ -6,16 +6,12 @@ import net.minecraft.world.dimension.DimensionType;
 
 import java.util.OptionalLong;
 
-public class DummyDimensionType extends DimensionType {
+public class DummyDimensionType {
 
-    private static DummyDimensionType instance;
+    private static DimensionType instance;
 
-    public static DummyDimensionType getInstance() {
-        if (instance == null) instance = new DummyDimensionType();
+    public static DimensionType getInstance() {
+        if (instance == null) instance =  DimensionType.create(OptionalLong.empty(), true,  false, false, false, 1.0, false, false, false, false, false,16, 32, 0, BlockTags.INFINIBURN_OVERWORLD, DimensionType.OVERWORLD_ID, 1f);
         return instance;
-    }
-
-    private DummyDimensionType() {
-        super(OptionalLong.empty(), true,  false, false, false, 1f, false, false, false, false, 0, BlockTags.INFINIBURN_OVERWORLD.getId(), DimensionType.OVERWORLD_ID, 1f);
     }
 }
